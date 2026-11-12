@@ -1,25 +1,36 @@
 # Profile Builder
 
-A free, local-first tool for drafting LinkedIn profiles and CVs. Download or clone the repository, then open `index.html` in a browser. No account, API key, application server, or AI service is required.
+A downloadable, local-first app for building a professional profile, CV, and LinkedIn drafts in Hebrew or English.
 
-## What it does
+## Start here
 
-- Guides you through general questions about your contact details, work history, education, skills, projects, and achievements.
-- Creates editable LinkedIn and CV drafts with Hebrew or English layouts, previews, and printable CV files. It does not translate answers automatically; enter them in the language you want to use.
-- Imports a LinkedIn data-export ZIP and maps supported CSV fields locally.
-- Saves optional materials and answers in this browser only. Imported files are not uploaded.
-- Imports custom questions and answers from a JSON file.
-- Includes local image tools and a LinkedIn Featured image creator. Loading a public GitHub avatar is optional and requires internet access.
+1. Add your CV, a LinkedIn data-export ZIP, text files, pasted notes, or a public HTTPS page.
+2. Choose OpenAI, Anthropic, or Google Gemini. Enter the model name and your own API key.
+3. Check the consent box and run the analysis. The app suggests answers for fields it can support from your materials and creates follow-up questions for distinct roles and projects.
+4. Review the suggestions in the questions step. AI-suggested answers are drafts; confirm their accuracy before using them in a CV or LinkedIn profile.
+5. Review the generated drafts and print or save your CV as PDF.
 
-## Current limits
+You need your own provider account and API key. Model use may incur charges from that provider. The API key is held only in the open page and is cleared after an analysis; it is not saved in browser storage or included in this repository. When you consent to analysis, the materials you added are sent directly from your browser to the selected provider. Do not send sensitive information you do not want that provider to process.
 
-The app does not scan GitHub repositories, automatically extract text from PDF files, or call an AI model. A PDF may be stored locally; paste its text into the form or use an AI service separately if you want help drafting answers. Always review generated text for accuracy before publishing.
+## Run locally
 
-## Privacy
+The app is static and needs no application server. To use browser-to-provider AI requests, serve the files over HTTP so the provider can accept the browser connection. For example, with Python installed:
 
-Answers, imported questions, and added materials are stored in this browser's local storage. They are not written to the project files or sent to a server. Clearing browser storage removes them; use the optional export button to keep a backup.
+```sh
+python -m http.server 8000
+```
 
-## Run tests
+Then open `http://localhost:8000`. You can also use a static HTTPS host.
+
+## Source and link limits
+
+- LinkedIn export ZIPs are mapped locally before analysis.
+- PDF files are attached to the selected AI provider. Text, Markdown, and CSV files are read in the browser.
+- Public HTTPS pages are read only when the website permits browser access (CORS). Pages requiring sign-in, and websites that block browser access, must be exported or pasted instead.
+- The app does not clone or crawl GitHub repositories. Add specific public pages/files or upload your project materials.
+- Answers and added materials remain in this browser unless you explicitly send them to the selected AI provider. Clearing browser storage removes saved answers and materials.
+
+## Tests
 
 ```sh
 node --test tests/

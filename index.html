@@ -102,15 +102,39 @@
 
     <details class="panel materials-panel" aria-labelledby="materials-heading">
       <summary class="panel-heading">
-        <h2 id="materials-heading" data-i18n="materialsHeading">החומרים שלי</h2>
+        <h2 id="materials-heading" data-i18n="materialsHeading">שלב 1: החומרים שלך</h2>
       </summary>
-      <p class="materials-intro" data-i18n="materialsIntro">הקבצים והטקסט נשמרים בדפדפן הזה בלבד.</p>
-      <label class="button materials-file-button" for="material-file" data-i18n="addFileMaterial">הוספת ייצוא LinkedIn או PDF</label>
-      <input id="material-file" type="file" accept=".zip,.pdf,application/zip,application/pdf" hidden>
+      <p class="materials-intro" data-i18n="materialsIntro">הוסיפי קורות חיים, קבצים וקישורים. בחרי ספק AI כדי לנתח אותם.</p>
+      <label class="button materials-file-button" for="material-file" data-i18n="addFileMaterial">הוספת קורות חיים, PDF או ייצוא LinkedIn</label>
+      <input id="material-file" type="file" accept=".zip,.pdf,.txt,.md,.csv,application/zip,application/pdf,text/plain,text/markdown,text/csv" multiple hidden>
+      <label class="field-label" for="material-link" data-i18n="materialLinkLabel">קישור ציבורי</label>
+      <div class="material-link-row">
+        <input id="material-link" type="url" inputmode="url" autocomplete="url" placeholder="https://..." data-i18n-placeholder="materialLinkPlaceholder">
+        <button id="add-material-link" class="button" type="button" data-i18n="addMaterialLink">הוספת קישור</button>
+      </div>
       <label class="field-label" for="material-text" data-i18n="pasteMaterialLabel">הדבקת קורות חיים, הערות או קישורים כטקסט</label>
       <textarea id="material-text" class="material-text" rows="5"></textarea>
       <button id="add-text-material" class="button" type="button" data-i18n="addTextMaterial">הוספת טקסט</button>
-      <label class="button materials-file-button" for="questions-json-file" data-i18n="importQuestionsAnswers">יבוא שאלות ותשובות (קובץ JSON)</label>
+      <div class="ai-analysis-controls">
+        <h3 data-i18n="aiSetupHeading">ניתוח והתאמה אישית באמצעות AI</h3>
+        <p class="materials-intro" data-i18n="aiPrivacyNotice">המפתח לא נשמר באפליקציה. בניתוח, החומרים יישלחו לספק שבחרת.</p>
+        <label class="field-label" for="ai-provider" data-i18n="aiProviderLabel">ספק AI</label>
+        <select id="ai-provider">
+          <option value="openai">OpenAI</option>
+          <option value="anthropic">Anthropic / Claude</option>
+          <option value="gemini">Google Gemini</option>
+        </select>
+        <label class="field-label" for="ai-model" data-i18n="aiModelLabel">שם המודל בחשבון שלך</label>
+        <input id="ai-model" type="text" autocomplete="off" placeholder="לדוגמה: שם מודל מספק ה-AI">
+        <label class="field-label" for="ai-api-key" data-i18n="aiApiKeyLabel">מפתח API אישי</label>
+        <input id="ai-api-key" type="password" autocomplete="off" spellcheck="false">
+        <label class="ai-consent">
+          <input id="ai-send-consent" type="checkbox">
+          <span data-i18n="aiConsent">אני מסכימה לשלוח את החומרים שסיפקתי לספק ה-AI שבחרתי לצורך הניתוח.</span>
+        </label>
+        <button id="ai-analyze-btn" class="button" type="button" data-i18n="aiAnalyze">סריקה, מילוי שאלות והצעת שאלות אישיות</button>
+      </div>
+      <label class="button materials-file-button" for="questions-json-file" data-i18n="importQuestionsAnswers">ייבוא שאלות ותשובות מקובץ JSON</label>
       <input id="questions-json-file" type="file" accept="application/json,.json" hidden>
       <span id="materials-message" class="materials-message" role="status" aria-live="polite"></span>
       <h3 class="materials-list-heading" data-i18n="materialsListHeading">חומרים שנוספו</h3>
@@ -192,6 +216,7 @@
    <script src="js/linkedin.js"></script>
    <script src="js/preview.js"></script>
   <script src="js/github-featured.js"></script>
+   <script src="js/ai-assistant.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
