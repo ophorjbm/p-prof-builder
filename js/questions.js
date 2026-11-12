@@ -1,0 +1,436 @@
+(function (root, factory) {
+  if (typeof module === "object" && module.exports) module.exports = factory();
+  else root.PROFILE_QUESTIONS = factory();
+})(typeof window !== "undefined" ? window : this, function () {
+  "use strict";
+  return [
+  {
+    "id": "full_name",
+    "section": "personal",
+    "label_en": "Name",
+    "label_he": "שם",
+    "type": "text",
+    "key": "FULL_NAME",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ],
+    "hint": "The name you want to use professionally. / השם שבו תרצו להשתמש באופן מקצועי."
+  },
+  {
+    "id": "city",
+    "section": "personal",
+    "label_en": "Location",
+    "label_he": "מקום מגורים",
+    "type": "text",
+    "key": "CITY",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ],
+    "hint": "City or region; leave blank if you do not want to share it. / עיר או אזור; אפשר להשאיר ריק."
+  },
+  {
+    "id": "email",
+    "section": "personal",
+    "label_en": "Professional email",
+    "label_he": "דוא״ל מקצועי",
+    "type": "text",
+    "key": "EMAIL",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "phone",
+    "section": "personal",
+    "label_en": "Phone",
+    "label_he": "טלפון",
+    "type": "text",
+    "key": "PHONE",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "linkedin_url",
+    "section": "personal",
+    "label_en": "LinkedIn profile URL",
+    "label_he": "קישור לפרופיל LinkedIn",
+    "type": "text",
+    "key": "LINKEDIN_URL",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "github_url",
+    "section": "personal",
+    "label_en": "GitHub profile URL",
+    "label_he": "קישור לפרופיל GitHub",
+    "type": "text",
+    "key": "GITHUB_URL",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "portfolio_url",
+    "section": "personal",
+    "label_en": "Portfolio URL",
+    "label_he": "קישור לתיק עבודות",
+    "type": "text",
+    "key": "PORTFOLIO_URL",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "target_job_title",
+    "section": "summary",
+    "label_en": "Target role",
+    "label_he": "תפקיד מבוקש",
+    "type": "text",
+    "key": "TARGET_JOB_TITLE",
+    "used_for": [
+      "cv",
+      "interview"
+    ]
+  },
+  {
+    "id": "headline",
+    "section": "summary",
+    "label_en": "Professional headline",
+    "label_he": "כותרת מקצועית",
+    "type": "text",
+    "key": "HEADLINE",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ],
+    "hint": "A concise description of your professional focus. / תיאור קצר של התחום המקצועי שלכם."
+  },
+  {
+    "id": "summary",
+    "section": "summary",
+    "label_en": "Professional summary",
+    "label_he": "תקציר מקצועי",
+    "type": "textarea",
+    "key": "SUMMARY",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "about",
+    "section": "summary",
+    "label_en": "About",
+    "label_he": "אודות",
+    "type": "textarea",
+    "key": "ABOUT",
+    "used_for": [
+      "linkedin"
+    ]
+  },
+  {
+    "id": "experience",
+    "section": "experience",
+    "label_en": "Work experience",
+    "label_he": "ניסיון תעסוקתי",
+    "type": "textarea",
+    "key": "EXPERIENCE",
+    "used_for": [
+      "linkedin",
+      "cv",
+      "interview"
+    ],
+    "hint": "One role per line: Job title | Organization | Start–end dates | Achievement (optional). Use only verified facts. / תפקיד אחד בכל שורה: תפקיד | ארגון | שנות התחלה–סיום | הישג (רשות). כתבו רק עובדות מאומתות."
+  },
+  {
+    "id": "employer_title",
+    "section": "experience",
+    "label_en": "Current or most recent job title",
+    "label_he": "תפקיד נוכחי או אחרון",
+    "type": "text",
+    "key": "EMPLOYER_TITLE",
+    "used_for": [
+      "linkedin",
+      "cv",
+      "interview"
+    ]
+  },
+  {
+    "id": "employer_organization",
+    "section": "experience",
+    "label_en": "Organization",
+    "label_he": "ארגון",
+    "type": "text",
+    "key": "EMPLOYER_ORGANIZATION",
+    "used_for": [
+      "linkedin",
+      "cv",
+      "interview"
+    ]
+  },
+  {
+    "id": "employer_employment_type",
+    "section": "experience",
+    "label_en": "Employment type",
+    "label_he": "סוג העסקה",
+    "type": "text",
+    "key": "EMPLOYER_EMPLOYMENT_TYPE",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "employer_start_date",
+    "section": "experience",
+    "label_en": "Start date",
+    "label_he": "תאריך התחלה",
+    "type": "text",
+    "key": "EMPLOYER_START_DATE",
+    "used_for": [
+      "linkedin",
+      "cv",
+      "interview"
+    ]
+  },
+  {
+    "id": "employer_end_date",
+    "section": "experience",
+    "label_en": "End date",
+    "label_he": "תאריך סיום",
+    "type": "text",
+    "key": "EMPLOYER_END_DATE",
+    "used_for": [
+      "linkedin",
+      "cv",
+      "interview"
+    ]
+  },
+  {
+    "id": "employer_current",
+    "section": "experience",
+    "label_en": "I still work here",
+    "label_he": "אני עדיין עובד/ת כאן",
+    "type": "checkbox",
+    "key": "EMPLOYER_CURRENT",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "employer_bullet_1",
+    "section": "experience",
+    "label_en": "Achievement or responsibility",
+    "label_he": "הישג או תחום אחריות",
+    "type": "textarea",
+    "key": "EMPLOYER_BULLET_1",
+    "used_for": [
+      "linkedin",
+      "cv",
+      "interview"
+    ]
+  },
+  {
+    "id": "employer_bullet_2",
+    "section": "experience",
+    "label_en": "Another achievement or responsibility",
+    "label_he": "הישג או תחום אחריות נוסף",
+    "type": "textarea",
+    "key": "EMPLOYER_BULLET_2",
+    "used_for": [
+      "linkedin",
+      "cv",
+      "interview"
+    ]
+  },
+  {
+    "id": "education_degree",
+    "section": "education",
+    "label_en": "Degree or qualification",
+    "label_he": "תואר או הכשרה",
+    "type": "text",
+    "key": "EDUCATION_DEGREE",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "education_institution",
+    "section": "education",
+    "label_en": "School or institution",
+    "label_he": "מוסד לימודים",
+    "type": "text",
+    "key": "EDUCATION_INSTITUTION",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "education_dates",
+    "section": "education",
+    "label_en": "Education dates",
+    "label_he": "שנות לימוד",
+    "type": "text",
+    "key": "EDUCATION_DATES",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "education_honors",
+    "section": "education",
+    "label_en": "Honors or relevant details",
+    "label_he": "הצטיינות או פרטים רלוונטיים",
+    "type": "text",
+    "key": "EDUCATION_HONORS",
+    "used_for": [
+      "cv"
+    ]
+  },
+  {
+    "id": "skills",
+    "section": "skills",
+    "label_en": "Skills",
+    "label_he": "כישורים",
+    "type": "textarea",
+    "key": "SKILLS",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ],
+    "hint": "Separate skills with commas or new lines. / הפרידו בין כישורים בפסיקים או בשורות."
+  },
+  {
+    "id": "projects",
+    "section": "projects",
+    "label_en": "Projects",
+    "label_he": "פרויקטים",
+    "type": "textarea",
+    "key": "PROJECTS",
+    "used_for": [
+      "linkedin",
+      "cv",
+      "interview"
+    ],
+    "hint": "One project per line. Include your role and technologies only if verified. / פרויקט אחד בכל שורה. ציינו תפקיד וטכנולוגיות רק אם הם מאומתים."
+  },
+  {
+    "id": "certifications",
+    "section": "additional",
+    "label_en": "Certifications",
+    "label_he": "הסמכות",
+    "type": "textarea",
+    "key": "CERTIFICATIONS",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "achievements",
+    "section": "additional",
+    "label_en": "Achievements",
+    "label_he": "הישגים",
+    "type": "textarea",
+    "key": "ACHIEVEMENTS",
+    "used_for": [
+      "linkedin",
+      "cv",
+      "interview"
+    ]
+  },
+  {
+    "id": "volunteering",
+    "section": "additional",
+    "label_en": "Volunteering",
+    "label_he": "התנדבות",
+    "type": "textarea",
+    "key": "VOLUNTEERING",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "languages",
+    "section": "additional",
+    "label_en": "Languages",
+    "label_he": "שפות",
+    "type": "textarea",
+    "key": "LANGUAGES",
+    "used_for": [
+      "linkedin",
+      "cv"
+    ]
+  },
+  {
+    "id": "star_project",
+    "section": "interview",
+    "label_en": "Describe a project you are proud of (situation, task, action, result).",
+    "label_he": "ספרו על פרויקט שאתם גאים בו: מצב, משימה, פעולה ותוצאה.",
+    "type": "textarea",
+    "key": "STAR_PROJECT",
+    "used_for": [
+      "interview"
+    ]
+  },
+  {
+    "id": "star_challenge",
+    "section": "interview",
+    "label_en": "Describe a difficult challenge and how you handled it.",
+    "label_he": "תארו אתגר מורכב ואיך התמודדתם איתו.",
+    "type": "textarea",
+    "key": "STAR_CHALLENGE",
+    "used_for": [
+      "interview"
+    ]
+  },
+  {
+    "id": "star_teamwork",
+    "section": "interview",
+    "label_en": "Describe a time you worked with others to achieve a result.",
+    "label_he": "תארו שיתוף פעולה שהוביל לתוצאה.",
+    "type": "textarea",
+    "key": "STAR_TEAMWORK",
+    "used_for": [
+      "interview"
+    ]
+  },
+  {
+    "id": "star_learning",
+    "section": "interview",
+    "label_en": "Describe something new you learned and applied.",
+    "label_he": "ספרו על משהו חדש שלמדתם ויישמתם.",
+    "type": "textarea",
+    "key": "STAR_LEARNING",
+    "used_for": [
+      "interview"
+    ]
+  },
+  {
+    "id": "star_results",
+    "section": "interview",
+    "label_en": "What result are you proud of, and what evidence supports it?",
+    "label_he": "באיזו תוצאה אתם גאים, ואילו ראיות תומכות בה?",
+    "type": "textarea",
+    "key": "STAR_RESULTS",
+    "used_for": [
+      "interview"
+    ]
+  }
+];
+});

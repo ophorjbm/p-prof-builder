@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>בונה פרופיל / Profile Builder</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-heading">
+      <h1 id="app-title" data-i18n="title">בונה פרופיל</h1>
+      <p id="app-subtitle" data-i18n="subtitle">ענה על השאלות וקבל טקסט מוכן ל-LinkedIn ולקורות חיים.</p>
+    </div>
+    <button id="lang-toggle" class="button ghost" type="button" aria-label="Switch language">English</button>
+  </header>
+
+  <main class="layout">
+    <details class="panel form-panel" aria-labelledby="form-heading" open>
+      <summary class="panel-heading">
+        <h2 id="form-heading" data-i18n="formHeading">השאלות</h2>
+      </summary>
+
+      <div class="question-source-control">
+        <span id="question-source-label" data-i18n="questionSourceLabel">מקור השאלות</span>
+        <div id="question-source-toggle" class="question-source-toggle" role="group" aria-labelledby="question-source-label">
+          <button id="builtin-questions-btn" class="button active" type="button" data-i18n="builtinQuestions">השאלות המובנות</button>
+          <button id="imported-questions-btn" class="button" type="button" data-i18n="importedQuestions">השאלות שיובאו</button>
+        </div>
+        <span id="question-source-status" class="source-status" role="status" aria-live="polite"></span>
+      </div>
+
+      <div class="sticky-progress-bar" id="sticky-progress-bar">
+        <button id="remaining-questions" class="remaining-questions" type="button">נשארו 0 שאלות לענות</button>
+        <button id="save-btn" class="button save-button" type="button">שמור</button>
+        <span id="save-status" class="save-status" aria-live="polite"></span>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span data-i18n="progress">התקדמות</span>
+          <span id="progress-text">0/0</span>
+        </div>
+        <div id="progress-track" class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="progress-bar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <div class="target-filter-wrap">
+        <span class="target-filter-label" data-i18n="targetFilterLabel">סינון לפי יעד</span>
+        <div id="target-filter" class="target-filter" role="group" aria-label="Target filter"></div>
+      </div>
+
+      <div id="target-progress" class="target-progress" aria-label="Progress by target"></div>
+
+      <div class="toolbar">
+        <button id="export-btn" class="button" type="button" data-i18n="export">ייצוא תשובות</button>
+        <button id="import-btn" class="button" type="button" data-i18n="import">ייבוא תשובות</button>
+        <input id="import-file" type="file" accept="application/json,.json" hidden>
+        <button id="reset-btn" class="button danger" type="button" data-i18n="reset">איפוס</button>
+      </div>
+
+      <form id="questions-form" autocomplete="off" novalidate></form>
+    </details>
+
+    <details class="panel output-panel" aria-labelledby="output-heading" open>
+      <summary class="panel-heading">
+        <h2 id="output-heading" data-i18n="outputHeading">התוצאה</h2>
+      </summary>
+
+      <div id="tabs" class="tabs" role="tablist"></div>
+
+      <div class="output-actions">
+        <button id="copy-btn" class="button" type="button" data-i18n="copy">העתקה</button>
+        <button id="download-cv-en" class="button" type="button" data-i18n="downloadCvEn">הורד קורות חיים אנגלית</button>
+        <button id="download-cv-he" class="button" type="button" data-i18n="downloadCvHe">הורד קורות חיים עברית</button>
+        <span id="copy-status" class="copy-status" aria-live="polite"></span>
+      </div>
+
+      <div id="preview-actions" class="preview-actions" hidden>
+        <button id="preview-he" class="button" type="button">עברית</button>
+        <button id="preview-en" class="button" type="button">English</button>
+        <button id="preview-sample" class="button" type="button">טען דוגמה</button>
+        <button id="preview-clear" class="button ghost" type="button" hidden>חזור לתשובות</button>
+        <button id="preview-print" class="button" type="button" hidden>הדפס / שמור PDF</button>
+        <label class="preview-photo-toggle"><input id="preview-show-photo" type="checkbox" checked> הצג תמונה בקורות חיים</label>
+      </div>
+
+      <iframe id="cv-preview-frame" class="cv-preview-frame" title="CV preview" sandbox="allow-same-origin allow-modals" hidden></iframe>
+      <div id="linkedin-preview" hidden></div>
+
+      <div id="missing-box" class="missing-box">
+        <h3 data-i18n="missingHeading">שדות חסרים</h3>
+        <p id="missing-empty" class="missing-empty" data-i18n="missingEmpty">כל השדות מלאים.</p>
+        <ul id="missing-list"></ul>
+      </div>
+
+      <div id="interview-practice" class="interview-practice" hidden></div>
+
+      <pre id="output" class="output" dir="ltr" tabindex="0"></pre>
+    </details>
+
+    <details class="panel materials-panel" aria-labelledby="materials-heading">
+      <summary class="panel-heading">
+        <h2 id="materials-heading" data-i18n="materialsHeading">החומרים שלי</h2>
+      </summary>
+      <p class="materials-intro" data-i18n="materialsIntro">הקבצים והטקסט נשמרים בדפדפן הזה בלבד.</p>
+      <label class="button materials-file-button" for="material-file" data-i18n="addFileMaterial">הוספת ייצוא LinkedIn או PDF</label>
+      <input id="material-file" type="file" accept=".zip,.pdf,application/zip,application/pdf" hidden>
+      <label class="field-label" for="material-text" data-i18n="pasteMaterialLabel">הדבקת קורות חיים, הערות או קישורים כטקסט</label>
+      <textarea id="material-text" class="material-text" rows="5"></textarea>
+      <button id="add-text-material" class="button" type="button" data-i18n="addTextMaterial">הוספת טקסט</button>
+      <label class="button materials-file-button" for="questions-json-file" data-i18n="importQuestionsAnswers">יבוא שאלות ותשובות (קובץ JSON)</label>
+      <input id="questions-json-file" type="file" accept="application/json,.json" hidden>
+      <span id="materials-message" class="materials-message" role="status" aria-live="polite"></span>
+      <h3 class="materials-list-heading" data-i18n="materialsListHeading">חומרים שנוספו</h3>
+      <ul id="materials-list" class="materials-list"></ul>
+    </details>
+  </main>
+
+  <dialog id="material-review-dialog" class="material-review-dialog" aria-labelledby="material-review-heading">
+    <h2 id="material-review-heading" data-i18n="materialReviewHeading">הבדלי גרסאות</h2>
+    <pre id="material-review-content" class="material-review-content" dir="auto"></pre>
+    <button id="close-material-review" class="button" type="button" data-i18n="close">סגירה</button>
+  </dialog>
+
+  <details class="panel featured-panel" aria-labelledby="featured-heading">
+    <summary class="panel-heading">
+      <h2 id="featured-heading" data-i18n="featuredHeading">תמונת קישור GitHub ל-Featured</h2>
+    </summary>
+    <p class="featured-intro" data-i18n="featuredIntro">צרי תמונה ל-LinkedIn בגודל 1200×627. אפשר להעלות תמונה או לטעון אווטאר ציבורי מ-GitHub.</p>
+    <div class="featured-editor">
+      <div class="featured-controls">
+        <label class="field-label" for="featured-image" data-i18n="featuredUpload">העלאת תמונה</label>
+        <input id="featured-image" type="file" accept="image/png,image/jpeg,image/webp">
+        <p class="featured-crop-hint" data-i18n="featuredCropHint">אפשר לגרור את התמונה בתוך העיגול ולכוון את החיתוך.</p>
+        <label class="field-label" for="featured-crop-zoom" data-i18n="featuredCropZoom">הגדלה</label>
+        <input id="featured-crop-zoom" class="featured-crop-slider" type="range" min="1" max="3" step="0.01" value="1">
+        <label class="field-label" for="featured-crop-x" data-i18n="featuredCropHorizontal">מיקום אופקי</label>
+        <input id="featured-crop-x" class="featured-crop-slider" type="range" min="-1" max="1" step="0.01" value="0">
+        <label class="field-label" for="featured-crop-y" data-i18n="featuredCropVertical">מיקום אנכי</label>
+        <input id="featured-crop-y" class="featured-crop-slider" type="range" min="-1" max="1" step="0.01" value="0">
+        <button id="featured-crop-reset" class="button ghost" type="button" data-i18n="featuredCropReset">איפוס חיתוך</button>
+
+        <label class="field-label" for="featured-username" data-i18n="featuredUsername">שם משתמש ב-GitHub</label>
+        <div class="featured-avatar-controls">
+          <input id="featured-username" type="text" autocomplete="off" placeholder="e.g. octocat">
+          <button id="featured-avatar-btn" class="button" type="button" data-i18n="featuredFetch">טען אווטאר</button>
+        </div>
+
+        <label class="field-label" for="featured-title" data-i18n="featuredTitle">כותרת</label>
+        <input id="featured-title" type="text" maxlength="48" value="">
+
+        <label class="field-label" for="featured-subtitle" data-i18n="featuredSubtitle">טקסט משנה</label>
+        <input id="featured-subtitle" type="text" maxlength="80" value="">
+      </div>
+
+      <div class="featured-preview">
+        <canvas id="featured-canvas" width="1200" height="627" role="img" aria-label="תצוגה מקדימה של תמונת Featured ל-LinkedIn"></canvas>
+      </div>
+    </div>
+    <div class="featured-actions">
+      <button id="featured-download" class="button" type="button" data-i18n="featuredDownload">הורדת התמונה</button>
+      <span id="featured-status" class="featured-status" role="status" aria-live="polite" data-i18n="featuredHint">התמונה נוצרת ונשמרת במחשב שלך בלבד.</span>
+    </div>
+    <details class="linkedin-image-tools" open>
+      <summary data-i18n="linkedinImagesHeading">תמונות LinkedIn</summary>
+      <div id="linkedin-image-fields"></div>
+    </details>
+  </details>
+
+  <footer class="app-footer">
+    <span data-i18n="footer">התשובות והחומרים נשמרים מקומית בדפדפן. אין צורך בחשבון או בשירות AI.</span>
+  </footer>
+
+  <script src="js/questions.js"></script>
+  <script src="js/answer-store.js"></script>
+  <script src="js/materials.js"></script>
+  <script src="js/image-fields.js"></script>
+  <script src="js/photo-edit.js"></script>
+  <script src="js/photo-check.js"></script>
+  <script src="js/profile-photo-checklist.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/product-name.js"></script>
+  <script src="js/templates.js"></script>
+  <script src="js/grouping.js"></script>
+  <script src="js/topics.js"></script>
+  <script src="js/savestate.js"></script>
+  <script src="js/kb.js"></script>
+   <script src="js/generate.js"></script>
+   <script src="js/cv.js"></script>
+   <script src="js/linkedin.js"></script>
+   <script src="js/preview.js"></script>
+  <script src="js/github-featured.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
