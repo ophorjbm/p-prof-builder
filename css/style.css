@@ -159,6 +159,9 @@ details.panel[open] > .panel-heading {
 }
 
 .materials-intro { margin: 0 0 0.8rem; }
+.ai-mode-explainer { margin: 0 0 0.8rem; padding: 0.65rem 0.8rem; border-inline-start: 3px solid var(--accent); border-radius: 8px; background: #fbfaf6; }
+.ai-mode-explainer p { margin: 0; }
+.ai-mode-explainer p + p { margin-top: 0.4rem; }
 .materials-panel > .button,
 .materials-file-button { display: block; width: 100%; margin: 0 0 0.65rem; text-align: center; }
 .materials-file-button { font-weight: 400; }
